@@ -11,13 +11,28 @@ import java.util.List;
 @Repository
 public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
+    
+    public Iterator<Product> findAll() {
+        return productData.iterator();
+    }
 
     public Product create(Product product) {
         productData.add(product);
         return product;
     }
 
-    public Iterator<Product> findAll() {
-        return productData.iterator();
+    public Product edit(Product product) {
+        for (Product p : productData) {
+            if (p.getProductId().equals(product.getProductId())) {
+                p.setProductName(product.getProductName());
+                p.setProductQuantity(product.getProductQuantity());
+                break;
+            }
+        }
+        return product;
+    }
+
+    public boolean delete(Product product) {
+        return productData.remove(product);
     }
 }
