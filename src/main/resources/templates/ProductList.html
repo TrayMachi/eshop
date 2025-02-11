@@ -29,7 +29,7 @@
           <tr th:each="product: ${products}">
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
-            <td>
+            <td class="d-flex justify-content-center align-items-center gap-2"> 
               <form
                 th:action="@{'/product/delete/' + ${product.productId}}"
                 th:object="${product}"
@@ -39,6 +39,11 @@
                   Delete
                 </button>
               </form>
+              <a
+                th:href="@{'/product/edit/' + ${product.productId}}"
+                class="btn btn-warning btn-sm"
+                >Edit</a
+              >
             </td>
           </tr>
         </tbody>
