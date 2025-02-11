@@ -16,6 +16,15 @@ public class ProductRepository {
         return productData.iterator();
     }
 
+    public Product findById(String productId) {
+        for (Product p : productData) {
+            if (p.getProductId().equals(productId)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     public Product create(Product product) {
         productData.add(product);
         return product;
