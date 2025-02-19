@@ -17,12 +17,13 @@ public class ProductRepository {
     }
 
     public Product findById(String productId) {
-        for (Product p : productData) {
-            if (p.getProductId().equals(productId)) {
-                return p;
-            }
+        if (productId == null) {
+            return null;
         }
-        return null;
+        return productData.stream()
+                .filter(p -> productId.equals(p.getProductId()))
+                .findFirst()
+                .orElse(null);
     }
 
     public Product create(Product product) {
@@ -31,14 +32,18 @@ public class ProductRepository {
     }
 
     public Product edit(Product product) {
-        for (Product p : productData) {
-            if (p.getProductId().equals(product.getProductId())) {
-                p.setProductName(product.getProductName());
-                p.setProductQuantity(product.getProductQuantity());
-                break;
-            }
+        if (product == null) {
+            return null;
         }
-        return product;
+
+        Product existingProduct = findById(product.getProductId());
+        if (existingProduct == null) {
+            return null;
+        }
+
+        existingProduct.setProductName(product.getProductName());
+        existingProduct.setProductQuantity(product.getProductQuantity());
+        return existingProduct;
     }
 
     public boolean delete(Product product) {
