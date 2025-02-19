@@ -3,6 +3,14 @@
 
 Adpro Spring Boot Project
 
+## Tutorial 2
+
+#### Reflection 1
+Untuk mengecek code quality issue saya pertama menggunakan Sonar Qube, tetapi untungnya Sonar Qube menunjukan tidak ada issue, sehingga saya menambahkan PMD agar pencarian code quality issue lebih maksimal. Saya mendapatkan 7 issue yang terdiri dari penggunakan import bintang, tidak perlunya modifier public pada class interface product service dan utility class has a non private constructor yang diaman saya suprass warningnya karena terdapat di class main.
+
+#### Reflection 2
+Menurut saya pengaplikasian saya sudah memenuhi CI dan CD. Saya sudah mengimplementasikan 5 Github Actions untuk mendukung CI dan CD yang saya gunakan. Salah satunya adalah mengecek unit test setiap kali ada perubahan pada saat push yang dimana saya juga sudah mendapatkan 100% code coverage pada unit test tersebut. Saya juga memili 3 CI yang melihat code quality saya (Scorecard Analysis, SonarQube Analysis, dan PMD). Lalu, untuk CD saya sudah berhasil melakukan deploy di Koyeb setiap ada pembaruan di main.
+
 ## Tutorial 1
 
 #### Reflection 1
