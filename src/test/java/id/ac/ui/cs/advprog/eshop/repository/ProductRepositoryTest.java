@@ -15,27 +15,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductRepositoryTest {
     @InjectMocks
     ProductRepository productRepository;
+
+    private Product sampleProduct;
+
     @BeforeEach
     void setUp() {
-
+        sampleProduct = new Product();
+        sampleProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        sampleProduct.setProductName("Sample Product");
+        sampleProduct.setProductQuantity(100);
     }
 
     @Test
     void testCreateAndFind() {
-        Product product = new Product();
-        product.setProductId("123e4567-e89b-12d3-a456-556642440000");
-        product.setProductName("Product 1");
-        product.setProductQuantity(100);
-        productRepository.create(product);
+        productRepository.create(sampleProduct);
 
         Iterator<Product> products = productRepository.findAll();
         assertTrue(products.hasNext());
 
         Product savedProduct = products.next();
 
-        assertEquals(product.getProductId(), savedProduct.getProductId());
-        assertEquals(product.getProductName(), savedProduct.getProductName());
-        assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+        assertEquals(sampleProduct.getProductId(), savedProduct.getProductId());
+        assertEquals(sampleProduct.getProductName(), savedProduct.getProductName());
+        assertEquals(sampleProduct.getProductQuantity(), savedProduct.getProductQuantity());
     }
 
     @Test
@@ -46,11 +48,7 @@ class ProductRepositoryTest {
 
     @Test
     void testFindAllIfMoreThanOneProduct() {
-        Product product1 = new Product();
-        product1.setProductId("123e4567-e89b-12d3-a456-556642440000");
-        product1.setProductName("Product 1");
-        product1.setProductQuantity(100);
-        productRepository.create(product1);
+        productRepository.create(sampleProduct);
 
         Product product2 = new Product();
         product2.setProductId("123e4567-e89b-12d3-a456-556642440001");
@@ -62,7 +60,7 @@ class ProductRepositoryTest {
         assertTrue(products.hasNext());
 
         Product savedProduct = products.next();
-        assertEquals(product1.getProductId(), savedProduct.getProductId());
+        assertEquals(sampleProduct.getProductId(), savedProduct.getProductId());
 
         savedProduct = products.next();
         assertEquals(product2.getProductId(), savedProduct.getProductId());
