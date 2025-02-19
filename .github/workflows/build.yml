@@ -1,19 +1,28 @@
-name: SonarQube
+name: SonarQube Analysis
+
 on:
   push:
     branches:
-      - '**'
-  pull_request:
-    types: [opened, synchronize, reopened]
+      - '**' # Runs on all branches
+
 jobs:
-  sonarqube:
-    name: SonarQube
+  sonar:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java (required for SonarQube Scanner)
+        uses: actions/setup-java@v3
         with:
-          fetch-depth: 0  
-      - name: SonarQubeScan
-        uses: SonarSource/sonarqube-scan-action@v4
-        env: 
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run SonarQube Scanner
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=TrayMachi_eshop \
+            -Dsonar.organization=traymachi \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.branch.name=${{ github.ref_name }}
