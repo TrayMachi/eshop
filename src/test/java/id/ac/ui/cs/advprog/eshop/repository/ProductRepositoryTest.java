@@ -128,11 +128,17 @@ class ProductRepositoryTest {
         product.setProductId("123e4567-e89b-12d3-a456-556642440000");
         product.setProductName("Product 1");
         product.setProductQuantity(100);
+        Product result = productRepository.edit(product);
 
-        productRepository.edit(product);
+        assertNull(result);
+    }
 
-        Iterator<Product> products = productRepository.findAll();
-        assertFalse(products.hasNext());
+    @Test
+    void testEditNull() {
+        Product product = null;
+
+        Product savedProduct = productRepository.edit(product);
+        assertNull(savedProduct);
     }
 
     @Test
@@ -185,5 +191,11 @@ class ProductRepositoryTest {
         Product savedProduct = productRepository.findById("123e4567-e89b-12d3-a456-556642440000");
 
         assertEquals(product, savedProduct);
+    }
+
+    @Test
+    void testFindByIdNull() {
+        Product savedProduct = productRepository.findById(null);
+        assertNull(savedProduct);
     }
 }
