@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.service.CarServiceImpl;
@@ -21,44 +20,43 @@ public class CarController {
     @Autowired
     private CarServiceImpl carService;
 
-    private static final String carListUrl = "redirect:/car/listCar";
+    private static final String carListUrl = "redirect:/car/list";
 
-    @GetMapping("/createCar")
+    @GetMapping("/create")
     public String createCarPage(Model model) {
         Car car = new Car();
         model.addAttribute("car", car);
         return "CreateCar";
     }
 
-    @PostMapping("/createCar")
+    @PostMapping("/create")
     public String createCarPost(@ModelAttribute Car car, Model model) {
         carService.create(car);
         return carListUrl;
     }
 
-    @GetMapping("/listCar")
+    @GetMapping("/list")
     public String carListPage(Model model) {
         List<Car> allCars = carService.findAll();
         model.addAttribute("cars", allCars);
         return "CarList";
     }
 
-    @GetMapping("/editCar/{carId}")
-    public String editCarPage(@PathVariable String carId, Model model) {
+    @GetMapping("/edit/{id}")
+    public String editCarPage(@PathVariable("id") String carId, Model model) {
         Car car = carService.findById(carId);
         model.addAttribute("car", car);
         return "EditCar";
     }
 
-    @PostMapping("/editCar")
+    @PostMapping("/edit")
     public String editCarPost(@ModelAttribute Car car, Model model) {
-        System.out.println(car.getCarId());
         carService.update(car.getCarId(), car);
         return carListUrl;
     }
 
-    @PostMapping("/deleteCar")
-    public String deleteCar(@RequestParam String carId, Model model) {
+    @PostMapping("/delete/{id}")
+    public String deleteCar(@PathVariable("id") String carId, Model model) {
         carService.deleteCarById(carId);
         return carListUrl;
     }
