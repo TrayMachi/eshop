@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.eshop.utils;
+package id.ac.ui.cs.advprog.eshop.utils.ServiceInterface;
 
 import java.util.List;
 
