@@ -53,7 +53,7 @@ public class ProductController {
 
     @PostMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") String productId, @ModelAttribute Product product, Model model) {
-        product.setProductId(productId);
+        product.setId(productId);
         service.update(product);
         return productListUrl;
     }
