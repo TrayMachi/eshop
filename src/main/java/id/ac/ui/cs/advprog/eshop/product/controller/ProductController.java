@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.product.controller;
 
 import id.ac.ui.cs.advprog.eshop.product.model.Product;
-import id.ac.ui.cs.advprog.eshop.utils.ProductService;
+import id.ac.ui.cs.advprog.eshop.product.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class ProductController {
     private static final String productListUrl = "redirect:/product/list";
 
     @Autowired
-    private ProductService service;
+    private ProductServiceImpl service;
 
     @GetMapping("/create")
     public String createProductPage(Model model) {

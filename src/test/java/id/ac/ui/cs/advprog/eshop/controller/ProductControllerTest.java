@@ -2,7 +2,7 @@ package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.product.controller.ProductController;
 import id.ac.ui.cs.advprog.eshop.product.model.Product;
-import id.ac.ui.cs.advprog.eshop.utils.ProductService;
+import id.ac.ui.cs.advprog.eshop.product.service.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class ProductControllerTest {
 
     @Mock
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @Mock
     private Model model;
