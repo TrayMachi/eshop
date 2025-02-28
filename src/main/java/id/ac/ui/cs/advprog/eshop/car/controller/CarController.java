@@ -49,8 +49,9 @@ public class CarController {
         return "EditCar";
     }
 
-    @PostMapping("/edit")
-    public String editCarPost(@ModelAttribute Car car, Model model) {
+    @PostMapping("/edit/{id}")
+    public String editCarPost(@PathVariable("id") String productId, @ModelAttribute Car car, Model model) {
+        car.setId(productId);
         carService.update(car);
         return carListUrl;
     }
