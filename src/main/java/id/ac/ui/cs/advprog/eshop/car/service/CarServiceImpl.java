@@ -8,13 +8,8 @@ import org.springframework.stereotype.Service;
 
 import id.ac.ui.cs.advprog.eshop.car.model.Car;
 import id.ac.ui.cs.advprog.eshop.car.repository.CarRepository;
-import id.ac.ui.cs.advprog.eshop.utils.DeleteService;
-import id.ac.ui.cs.advprog.eshop.utils.GetService;
-import id.ac.ui.cs.advprog.eshop.utils.PostService;
-import id.ac.ui.cs.advprog.eshop.utils.UpdateService;
-
 @Service
-public class CarServiceImpl implements GetService<Car>, PostService<Car>, UpdateService<Car>, DeleteService<Car> {
+public class CarServiceImpl implements CarService {
     @Autowired
     private CarRepository carRepository;
 
