@@ -15,7 +15,7 @@
       <h3>Edit Product</h3>
 
       <form
-        th:action="@{'/product/edit/' + ${product.productId}}"
+        th:action="@{'/product/edit/' + ${product.id}}"
         th:object="${product}"
         method="post"
       >
