@@ -1,7 +1,9 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
-import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
+import id.ac.ui.cs.advprog.eshop.product.model.Product;
+import id.ac.ui.cs.advprog.eshop.product.repository.ProductRepository;
+import id.ac.ui.cs.advprog.eshop.product.service.ProductServiceImpl;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +31,7 @@ class ProductServiceImplTest {
     @BeforeEach
     void setUp() {
         sampleProduct = new Product();
-        sampleProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        sampleProduct.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         sampleProduct.setProductName("Sample Product");
         sampleProduct.setProductQuantity(100);
     }
@@ -41,7 +43,7 @@ class ProductServiceImplTest {
         Product created = productService.create(sampleProduct);
 
         assertNotNull(created);
-        assertEquals(sampleProduct.getProductId(), created.getProductId());
+        assertEquals(sampleProduct.getId(), created.getId());
         assertEquals(sampleProduct.getProductName(), created.getProductName());
         assertEquals(sampleProduct.getProductQuantity(), created.getProductQuantity());
         verify(productRepository, times(1)).create(sampleProduct);
@@ -53,7 +55,7 @@ class ProductServiceImplTest {
         productList.add(sampleProduct);
         
         Product secondProduct = new Product();
-        secondProduct.setProductId("abc-123");
+        secondProduct.setId("abc-123");
         secondProduct.setProductName("Second Product");
         secondProduct.setProductQuantity(50);
         productList.add(secondProduct);
@@ -64,8 +66,8 @@ class ProductServiceImplTest {
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        assertEquals(sampleProduct.getProductId(), result.get(0).getProductId());
-        assertEquals(secondProduct.getProductId(), result.get(1).getProductId());
+        assertEquals(sampleProduct.getId(), result.get(0).getId());
+        assertEquals(secondProduct.getId(), result.get(1).getId());
         verify(productRepository, times(1)).findAll();
     }
 
@@ -82,13 +84,13 @@ class ProductServiceImplTest {
 
     @Test
     void testFindByIdExistingProduct() {
-        when(productRepository.findById(sampleProduct.getProductId())).thenReturn(sampleProduct);
+        when(productRepository.findById(sampleProduct.getId())).thenReturn(sampleProduct);
 
-        Product found = productService.findById(sampleProduct.getProductId());
+        Product found = productService.findById(sampleProduct.getId());
 
         assertNotNull(found);
-        assertEquals(sampleProduct.getProductId(), found.getProductId());
-        verify(productRepository, times(1)).findById(sampleProduct.getProductId());
+        assertEquals(sampleProduct.getId(), found.getId());
+        verify(productRepository, times(1)).findById(sampleProduct.getId());
     }
 
     @Test
@@ -125,27 +127,27 @@ class ProductServiceImplTest {
     @Test
     void testEditExistingProduct() {
         Product updatedProduct = new Product();
-        updatedProduct.setProductId(sampleProduct.getProductId());
+        updatedProduct.setId(sampleProduct.getId());
         updatedProduct.setProductName("Updated Name");
         updatedProduct.setProductQuantity(200);
 
-        when(productRepository.edit(updatedProduct)).thenReturn(updatedProduct);
+        when(productRepository.update(updatedProduct)).thenReturn(updatedProduct);
 
-        Product result = productService.edit(updatedProduct);
+        Product result = productService.update(updatedProduct);
 
         assertNotNull(result);
         assertEquals(updatedProduct.getProductName(), result.getProductName());
         assertEquals(updatedProduct.getProductQuantity(), result.getProductQuantity());
-        verify(productRepository, times(1)).edit(updatedProduct);
+        verify(productRepository, times(1)).update(updatedProduct);
     }
 
     @Test
     void testEditNonExistentProduct() {
-        when(productRepository.edit(sampleProduct)).thenReturn(null);
+        when(productRepository.update(sampleProduct)).thenReturn(null);
 
-        Product result = productService.edit(sampleProduct);
+        Product result = productService.update(sampleProduct);
 
         assertNull(result);
-        verify(productRepository, times(1)).edit(sampleProduct);
+        verify(productRepository, times(1)).update(sampleProduct);
     }
 }
