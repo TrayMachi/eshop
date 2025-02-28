@@ -51,13 +51,14 @@ public class CarController {
 
     @PostMapping("/edit")
     public String editCarPost(@ModelAttribute Car car, Model model) {
-        carService.update(car.getCarId(), car);
+        carService.update(car);
         return carListUrl;
     }
 
     @PostMapping("/delete/{id}")
     public String deleteCar(@PathVariable("id") String carId, Model model) {
-        carService.deleteCarById(carId);
+        Car car = carService.findById(carId);
+        carService.delete(car);
         return carListUrl;
     }
 }

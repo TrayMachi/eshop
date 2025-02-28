@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 import id.ac.ui.cs.advprog.eshop.car.model.Car;
 import id.ac.ui.cs.advprog.eshop.car.repository.CarRepository;
-import id.ac.ui.cs.advprog.eshop.utils.CarService;
+import id.ac.ui.cs.advprog.eshop.utils.DeleteService;
+import id.ac.ui.cs.advprog.eshop.utils.GetService;
+import id.ac.ui.cs.advprog.eshop.utils.PostService;
+import id.ac.ui.cs.advprog.eshop.utils.UpdateService;
 
 @Service
-public class CarServiceImpl implements CarService {
+public class CarServiceImpl implements GetService<Car>, PostService<Car>, UpdateService<Car>, DeleteService<Car> {
     @Autowired
     private CarRepository carRepository;
 
@@ -36,12 +39,12 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void update(String carId, Car car) {
-        carRepository.update(carId, car);
+    public Car update(Car car) {
+        return carRepository.update(car);
     }
 
     @Override
-    public void deleteCarById(String carId) {
-        carRepository.delete(carId);
+    public boolean delete(Car car) {
+        return carRepository.delete(car);
     }
 }
