@@ -11,14 +11,14 @@ public class ProductTest {
     @BeforeEach
     void setup() {
         this.product = new Product();
-        this.product.setProductId("123e4567-e89b-12d3-a456-556642440000");
+        this.product.setId("123e4567-e89b-12d3-a456-556642440000");
         this.product.setProductName("Product 1");
         this.product.setProductQuantity(100);
     }
 
     @Test
     public void testGetProductId() {
-        assert(this.product.getProductId().equals("123e4567-e89b-12d3-a456-556642440000"));
+        assert(this.product.getId().equals("123e4567-e89b-12d3-a456-556642440000"));
     }
 
     @Test

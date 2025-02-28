@@ -1,17 +1,11 @@
 package id.ac.ui.cs.advprog.eshop.product.model;
 
-import java.util.UUID;
-
+import id.ac.ui.cs.advprog.eshop.utils.ModelAbstract.ModelAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class Product {
-    private String productId;
+public class Product extends ModelAbstract {
     private String productName;
     private int productQuantity;
-    
-    public Product() {
-        this.productId = UUID.randomUUID().toString();
-    }
 }
