@@ -1,8 +1,8 @@
-package id.ac.ui.cs.advprog.eshop.service;
+package id.ac.ui.cs.advprog.eshop.utils;
 
 import java.util.List;
 
-import id.ac.ui.cs.advprog.eshop.model.Car;
+import id.ac.ui.cs.advprog.eshop.car.model.Car;
 
 public interface CarService {
     public Car create(Car car);
