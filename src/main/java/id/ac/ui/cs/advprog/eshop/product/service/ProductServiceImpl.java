@@ -3,11 +3,6 @@ package id.ac.ui.cs.advprog.eshop.product.service;
 
 import id.ac.ui.cs.advprog.eshop.product.model.Product;
 import id.ac.ui.cs.advprog.eshop.product.repository.ProductRepository;
-import id.ac.ui.cs.advprog.eshop.utils.DeleteService;
-import id.ac.ui.cs.advprog.eshop.utils.GetService;
-import id.ac.ui.cs.advprog.eshop.utils.PostService;
-import id.ac.ui.cs.advprog.eshop.utils.UpdateService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements GetService<Product>, PostService<Product>, UpdateService<Product>, DeleteService<Product> {
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
