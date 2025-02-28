@@ -1,7 +1,7 @@
-package id.ac.ui.cs.advprog.eshop.controller;
+package id.ac.ui.cs.advprog.eshop.product.controller;
 
-import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import id.ac.ui.cs.advprog.eshop.product.model.Product;
+import id.ac.ui.cs.advprog.eshop.utils.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,7 +54,7 @@ public class ProductController {
     @PostMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") String productId, @ModelAttribute Product product, Model model) {
         product.setProductId(productId);
-        service.edit(product);
+        service.update(product);
         return productListUrl;
     }
 

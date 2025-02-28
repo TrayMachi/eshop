@@ -1,6 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
-import id.ac.ui.cs.advprog.eshop.model.Product;
+import id.ac.ui.cs.advprog.eshop.product.model.Product;
+import id.ac.ui.cs.advprog.eshop.product.repository.ProductRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -78,7 +80,7 @@ class ProductRepositoryTest {
 
         product.setProductName("Product 2");
         product.setProductQuantity(200);
-        productRepository.edit(product);
+        productRepository.update(product);
 
         Iterator<Product> products = productRepository.findAll();
         assertTrue(products.hasNext());
@@ -106,7 +108,7 @@ class ProductRepositoryTest {
 
         product1.setProductName("Product 3");
         product1.setProductQuantity(300);
-        productRepository.edit(product1);
+        productRepository.update(product1);
 
         Iterator<Product> products = productRepository.findAll();
         assertTrue(products.hasNext());
@@ -126,7 +128,7 @@ class ProductRepositoryTest {
         product.setProductId("123e4567-e89b-12d3-a456-556642440000");
         product.setProductName("Product 1");
         product.setProductQuantity(100);
-        Product result = productRepository.edit(product);
+        Product result = productRepository.update(product);
 
         assertNull(result);
     }
@@ -135,7 +137,7 @@ class ProductRepositoryTest {
     void testEditNull() {
         Product product = null;
 
-        Product savedProduct = productRepository.edit(product);
+        Product savedProduct = productRepository.update(product);
         assertNull(savedProduct);
     }
 

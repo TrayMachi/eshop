@@ -1,7 +1,9 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
-import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
+import id.ac.ui.cs.advprog.eshop.product.model.Product;
+import id.ac.ui.cs.advprog.eshop.product.repository.ProductRepository;
+import id.ac.ui.cs.advprog.eshop.product.service.ProductServiceImpl;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -129,23 +131,23 @@ class ProductServiceImplTest {
         updatedProduct.setProductName("Updated Name");
         updatedProduct.setProductQuantity(200);
 
-        when(productRepository.edit(updatedProduct)).thenReturn(updatedProduct);
+        when(productRepository.update(updatedProduct)).thenReturn(updatedProduct);
 
-        Product result = productService.edit(updatedProduct);
+        Product result = productService.update(updatedProduct);
 
         assertNotNull(result);
         assertEquals(updatedProduct.getProductName(), result.getProductName());
         assertEquals(updatedProduct.getProductQuantity(), result.getProductQuantity());
-        verify(productRepository, times(1)).edit(updatedProduct);
+        verify(productRepository, times(1)).update(updatedProduct);
     }
 
     @Test
     void testEditNonExistentProduct() {
-        when(productRepository.edit(sampleProduct)).thenReturn(null);
+        when(productRepository.update(sampleProduct)).thenReturn(null);
 
-        Product result = productService.edit(sampleProduct);
+        Product result = productService.update(sampleProduct);
 
         assertNull(result);
-        verify(productRepository, times(1)).edit(sampleProduct);
+        verify(productRepository, times(1)).update(sampleProduct);
     }
 }
