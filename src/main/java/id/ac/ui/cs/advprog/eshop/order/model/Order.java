@@ -1,7 +1,8 @@
-package id.ac.ui.cs.advprog.eshop.model;
+package id.ac.ui.cs.advprog.eshop.order.model;
 
 import java.util.List;
 
+import id.ac.ui.cs.advprog.eshop.product.model.Product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
