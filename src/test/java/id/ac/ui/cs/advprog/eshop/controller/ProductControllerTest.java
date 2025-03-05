@@ -1,7 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
-import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import id.ac.ui.cs.advprog.eshop.product.controller.ProductController;
+import id.ac.ui.cs.advprog.eshop.product.model.Product;
+import id.ac.ui.cs.advprog.eshop.product.service.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.*;
 class ProductControllerTest {
 
     @Mock
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @Mock
     private Model model;
@@ -71,7 +72,7 @@ class ProductControllerTest {
         Product product = new Product();
         String viewName = productController.editProduct("1", product, model);
         assertEquals("redirect:/product/list", viewName);
-        verify(productService, times(1)).edit(product);
+        verify(productService, times(1)).update(product);
     }
 
     @Test

@@ -3,6 +3,93 @@
 
 Adpro Spring Boot Project
 
+
+## Tutorial 3
+
+### Principle yang Digunakan
+
+#### Single Responsibility Principle
+SRP menyatakan bahwa sebuah class harus memiliki satu dan hanya satu tujuan. Yang dimana MVC Architecture dapat dibilang implement dari SRP. Seperti berikut:
+1. Models (Product & Car) memiliki tujuan untuk representasi attribute yang dimiliki sebuah model.
+2. Repositories (ProductRepository & Car Repository) handle data untuk ke database
+3. Services (ProductService & CarService) berisi logika bisnis.
+4. Controllers (ProductController, CarController) memiliki tujuan untuk meng-handle HTTP request
+
+#### Open/Closed Principle (OCP)
+OCP prinsip ini menyatakan bahwa software harus terbuka untuk penambahan tetapi tertutup untuk modifikasi.
+1. Abstract Class (contoh: ModelAbstract) yang dapat diperluas tanpa mengubah kode yang sudah ada.
+2. Antarmuka (contoh: folder RepositoryInterface & ServiceInterface) yang mendefinisikan interface, dapat diimplementasikan selama sesuai dengan kriteria interfacce.
+
+#### Liskov Subtitution Principle (LSP)
+LSP menyatakan bahwa object dari superclass harus dapat diubah dengan object dari subclass tanpa mengganggu kebenaran program.
+1. Abstract class (ModelAbstract) dapat diextend oleh Product dan Car tanpa merusak isi dari subclass (Product & Car) tersebut.
+
+#### Interface Segregation Principle (ISP)
+ISP menyatakan bahwa program seharusnya tidak terpaksa berdepensi dengan interface yang tidak mereka pakai.
+1. Membuat folder ServiceInterface yang dimana berisikan interface dasar untuk berbagai method (GET, POST, DELETE, UPDATE) yang dimana nantinya tiap ProductService atau CarService dapat mengambil salah keempat itu dan tidak harus semuanya sesuai yang diinginkan.
+
+#### Dependency Inversion Principle (DIP)
+DIP menyatakan bahwa high-level modules seharusnya tidak berdependensi dengan low-level modules, keduanya seharusnya berdependensi dengan abstractions.
+
+1. Spring Boot secara alami mendukung Dependency Inversion Principle (DIP) melalui mekanisme Dependency Injection (DI). DI memungkinkan kita untuk mengandalkan abstraksi (interface) alih-alih langsung bergantung pada implementasi konkret.
+
+2. Spring Boot menyediakan fitur DI melalui IoC (Inversion of Control) container, yang bekerja dengan anotasi seperti:
+
+    @Service → Untuk menandai service layer
+    @Repository → Untuk data access layer
+    @Component → Untuk bean yang dapat di-manage oleh Spring
+
+Dengan pendekatan ini, kita bisa memisahkan high-level module dari low-level module, memastikan keduanya bergantung pada abstraksi, bukan pada implementasi langsung.
+
+### Keuntungan Menerapkan Prinsip SOLID dalam Projek
+
+1. Mudah Diupdate (OCP)
+- Contoh: Menambahkan tipe Item baru (misal: ElectronicProduct) hanya perlu membuat subclass baru tanpa mengubah kode ModelAbstract, ServiceInterface, atau BaseRepository yang sudah ada.
+- Hasil: Pengembangan fitur baru lebih cepat dan minim risiko merusak kode yang sudah berjalan.
+
+2. Fleksibel & Dapat Diganti (LSP)
+
+- Contoh: Class Car dan Product bisa digunakan di semua lapisan (service, repository, controller) sebagai Item tanpa menyebabkan error, karena perilakunya konsisten.
+- Hasil: Kolaborasi tim lebih mudah karena tidak perlu tahu detail implementasi tiap subclass.
+
+3. Interface Spesifik (ISP)
+
+- Contoh: ProductController hanya bergantung pada ProductService, tidak terpaksa mengimplementasi method CarService yang tidak digunakan.
+- Hasil: Kode lebih bersih dan menghindari "interface pollution".
+
+4. Dependensi Mudah di-maintenance (DIP)
+
+- Contoh: Lapisan service menggunakan interface BaseRepository (bukan implementasi langsung), sehingga mudah mengganti database tanpa mengubah service.
+- Hasil: Testing lebih mudah dengan mock repository, dan kode lebih modular.
+
+5. Kode Lebih Terstruktur
+
+- Contoh: Pemisahan layer (controller ↔ service ↔ repository) memisahkan tanggung jawab, sehingga debug dan maintenance lebih mudah.
+
+### Kerugian Tidak Menerapkan Prinsip SOLID
+
+1. Kode Kaku & Sulit Diperluas
+
+- Contoh: Jika ProductService langsung bergantung pada class Product (bukan interface pada folder ServiceInterface), menambah Car akan memaksa modifikasi ProductService, berisiko menyebabkan bug.
+
+2. Ketergantungan Tinggi Antar Komponen
+
+- Contoh: Jika ProductController bergantung pada ProductServiceImpl (konkret), mengganti implementasi service akan merusak controller.
+
+3. Duplikasi Kode
+
+- Contoh: Tanpa LSP, mungkin ada pengecekan if (item instanceof Product) di seluruh lapisan, menyebabkan logika berulang.
+
+4. Sulit Diuji
+
+- Contoh: Jika ProductService langsung memanggil database (tanpa interface repository), testing harus menggunakan database nyata, lambat dan rentan error.
+
+5. Technical Debt Menumpuk
+
+- Contoh: Tidak menerapkan ISP bisa membuat interface ProductService memiliki 20+ method, padahal ProductController hanya butuh 5 method. Kode jadi sulit dipahami dan dimodifikasi.
+
+
+
 ## Tutorial 2
 
 #### Reflection 1
