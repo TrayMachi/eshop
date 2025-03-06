@@ -31,13 +31,13 @@ public class OrderRepositoryTest {
         products.add(product1);
 
         orders = new ArrayList<>();
-        Order order1 = new Order("13652556-012a-4c07-b546-54eb1396d79b",products, 170856000L, "Andrew 1");
+        Order order1 = new Order("13652556-012a-4c07-b546-54eb1396d79b",products, 170856000L, "Safira Sudrajat");
         orders.add(order1);
 
-        Order order2 = new Order("23242556-012a-4c07-b546-54eb1396d79b", products, 170857001L, "Andrew 2");
+        Order order2 = new Order("23242556-012a-4c07-b546-54eb1396d79b", products, 170857001L, "Safira Sudrajat");
         orders.add(order2);
 
-        Order order3 = new Order("82732556-012a-4c07-b546-54eb1396d79b", products, 170858002L, "Andrew 3");
+        Order order3 = new Order("82732556-012a-4c07-b546-54eb1396d79b", products, 170858002L, "Bambang Sudrajat");
         orders.add(order3);
     }
 
@@ -60,7 +60,7 @@ public class OrderRepositoryTest {
         Order order = orders.get(1);
         orderRepository.save(order);
 
-        Order newOrder = new Order("82732556-012a-4c07-b546-54eb1396d79b", order.getProducts(), order.getOrderTime(), order.getAuthor(),
+        Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(),
                 OrderStatus.SUCCESS.getValue());
         Order result = orderRepository.save(newOrder);
 
