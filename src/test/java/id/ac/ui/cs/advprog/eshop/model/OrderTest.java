@@ -36,7 +36,7 @@ class OrderTest {
         this.products.clear();
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Order order = new Order("123e4567-e89b-12d3-a456-556642440000", this.products, 1708560000L, "Safira Sudrajat");
+            new Order("123e4567-e89b-12d3-a456-556642440000", this.products, 1708560000L, "Safira Sudrajat");
         });
     }
 
@@ -64,7 +64,7 @@ class OrderTest {
     @Test
     void testCreateOrderInvalidStatus() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Order order = new Order("123e4567-e89b-12d3-a456-556642440000", this.products, 1708560000L, "Safira Sudrajat", "MEOW");
+            new Order("123e4567-e89b-12d3-a456-556642440000", this.products, 1708560000L, "Safira Sudrajat", "MEOW");
         });
     }
 
