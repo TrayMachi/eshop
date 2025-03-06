@@ -17,7 +17,7 @@ public enum OrderStatus {
 
     public static boolean contains(String param) {
         for (OrderStatus orderStatus : OrderStatus.values()) {
-            if (orderStatus.value.equals(param)) {
+            if (orderStatus.name().equals(param)) {
                 return true;
             }
         }

@@ -36,9 +36,9 @@ public class Order {
 
     public void setStatus(String status) {
         if (OrderStatus.contains(status)) {
-            throw new IllegalArgumentException();
-        } else {
             this.status = status;
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 }
