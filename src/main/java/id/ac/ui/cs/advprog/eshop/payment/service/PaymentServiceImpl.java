@@ -1,11 +1,13 @@
 package id.ac.ui.cs.advprog.eshop.payment.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import id.ac.ui.cs.advprog.eshop.order.model.Order;
 import id.ac.ui.cs.advprog.eshop.payment.model.Payment;
 import id.ac.ui.cs.advprog.eshop.payment.repository.PaymentRepository;
 
@@ -16,9 +18,11 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentRepository paymentRepository;
 
     @Override
-    public Payment addPayment(Payment payment) {
-        if (paymentRepository.findById(payment.getId()) == null & paymentRepository.findAllByOrderId(payment.getOrder().getId()) == null) {
-            return paymentRepository.save(payment);
+    public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
+        if (paymentRepository.findAllByOrderId(order.getId()) == null) {
+            Payment payment = new Payment(order, method, paymentData);
+            paymentRepository.save(payment);
+            return payment;
         }
 
         return null;

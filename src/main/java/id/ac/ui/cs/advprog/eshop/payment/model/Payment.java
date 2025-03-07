@@ -6,14 +6,24 @@ import id.ac.ui.cs.advprog.eshop.order.model.Order;
 import id.ac.ui.cs.advprog.eshop.payment.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.payment.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.utils.ModelAbstract.ModelAbstract;
+import lombok.Builder;
 import lombok.Getter;
 
-@Getter
+@Getter @Builder
 public class Payment extends ModelAbstract {
     private Order order;
     private String method;
     private String status;
     private Map<String, String> paymentData;
+
+    public Payment(Order order, String method, Map<String, String> paymentData) {
+        super();
+        this.order = order;
+        this.method = method;
+        this.setStatus(PaymentStatus.WAITING_PAYMENT.getValue());
+        this.setPaymentMethod(method);
+        this.paymentData = paymentData;
+    }
 
     public Payment(Order order, String method, String status, Map<String, String> paymentData) {
         super();
