@@ -8,8 +8,9 @@ import id.ac.ui.cs.advprog.eshop.payment.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.utils.ModelAbstract.ModelAbstract;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter @Builder
+@Getter @Builder @Setter
 public class Payment extends ModelAbstract {
     private Order order;
     private String method;
@@ -20,14 +21,10 @@ public class Payment extends ModelAbstract {
         super();
         this.order = order;
         this.method = method;
-        this.setStatus(PaymentStatus.WAITING_PAYMENT.getValue());
+        this.setStatus("WAITING_PAYMENT");
         this.setPaymentMethod(method);
-
-        if (PaymentDataVerification(paymentData)) {
-            this.paymentData = paymentData;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        this.paymentData = paymentData;
+        PaymentDataVerification(paymentData);
     }
 
     public Payment(Order order, String method, String status, Map<String, String> paymentData) {
@@ -39,9 +36,9 @@ public class Payment extends ModelAbstract {
     }
 
     private boolean PaymentDataVerification(Map<String, String> paymentData) {
-        if (this.method.equals(PaymentMethod.VOUCHERCODE.getValue())) {
+        if (this.method.equals("VOUCHERCODE")) {
             return validateVoucherCode(paymentData);
-        } else if (this.method.equals(PaymentMethod.BANKTRANSFER.getValue())) {
+        } else if (this.method.equals("BANKTRANSFER")) {
             return validateBankTransfer(paymentData);
         }
 
@@ -87,9 +84,9 @@ public class Payment extends ModelAbstract {
         }
     }
 
-    public void setPaymentMethod(String method) {
-        if (PaymentMethod.contains(status)) {
-            this.method = method;
+    public void setPaymentMethod(String paymentMethod) {
+        if (PaymentMethod.contains(paymentMethod)) {
+            this.method = paymentMethod;
         } else {
             throw new IllegalArgumentException();
         }
