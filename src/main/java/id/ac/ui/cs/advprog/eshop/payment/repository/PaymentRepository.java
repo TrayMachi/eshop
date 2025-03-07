@@ -23,6 +23,10 @@ public class PaymentRepository {
         return payment;
     }
 
+    public List<Payment> findAll() {
+        return paymentData;
+    }
+
     public Payment findById(String id) {
         for (Payment savedPayment : paymentData) {
             if (savedPayment.getId().equals(id)) {
