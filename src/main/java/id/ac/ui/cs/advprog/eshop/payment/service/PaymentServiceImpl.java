@@ -30,6 +30,11 @@ public class PaymentServiceImpl implements PaymentService {
         if (payment != null) {
             Payment newPayment = new Payment(payment.getOrder(), payment.getMethod(), status, payment.getPaymentData());
             paymentRepository.save(newPayment);
+            if (status.equals("SUCCESS")) {
+                payment.getOrder().setStatus("SUCCESS");
+            } else {
+                payment.getOrder().setStatus("FAILED");
+            }
             return newPayment;
         } else {
             throw new NoSuchElementException();
