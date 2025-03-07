@@ -22,7 +22,12 @@ public class Payment extends ModelAbstract {
         this.method = method;
         this.setStatus(PaymentStatus.WAITING_PAYMENT.getValue());
         this.setPaymentMethod(method);
-        this.paymentData = paymentData;
+
+        if (PaymentDataVerification(paymentData)) {
+            this.paymentData = paymentData;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public Payment(Order order, String method, String status, Map<String, String> paymentData) {
@@ -31,6 +36,47 @@ public class Payment extends ModelAbstract {
         this.method = method;
         this.setStatus(status);
         this.setPaymentMethod(method);
+    }
+
+    private boolean PaymentDataVerification(Map<String, String> paymentData) {
+        if (this.method.equals(PaymentMethod.VOUCHERCODE.getValue())) {
+            return validateVoucherCode(paymentData);
+        } else if (this.method.equals(PaymentMethod.BANKTRANSFER.getValue())) {
+            return validateBankTransfer(paymentData);
+        }
+
+        return false;
+    }
+
+    private boolean validateVoucherCode(Map<String, String> paymentData) {
+        String voucherCode = paymentData.get("voucherCode");
+
+        if (voucherCode != null && voucherCode.length() == 16 && voucherCode.startsWith("ESHOP") && voucherCode.substring(5).matches("\\d{8}")) {
+            this.status = PaymentStatus.SUCCESS.getValue();
+            order.setStatus("SUCCESS");
+            return true;
+        } else {
+            this.status = PaymentStatus.REJECTED.getValue();
+            order.setStatus("FAILED");
+            return false;
+
+        }
+    }
+
+    private boolean validateBankTransfer(Map<String, String> paymentData) {
+        String bankName = paymentData.get("bankName");
+        String referenceCode = paymentData.get("accountNumber");
+
+        if (bankName != null && referenceCode != null) {
+            this.status = PaymentStatus.SUCCESS.getValue();
+            order.setStatus("SUCCESS");
+            return true;
+        } else {
+            this.status = PaymentStatus.REJECTED.getValue();
+            order.setStatus("FAILED");
+            return false;
+        }
+
     }
     
     public void setStatus(String status) {
@@ -41,9 +87,9 @@ public class Payment extends ModelAbstract {
         }
     }
 
-    public void setPaymentMethod(String status) {
+    public void setPaymentMethod(String method) {
         if (PaymentMethod.contains(status)) {
-            this.status = status;
+            this.method = method;
         } else {
             throw new IllegalArgumentException();
         }
